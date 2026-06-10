@@ -26,31 +26,31 @@ const DashboardLayout = ({ children }) => {
     {
       key: 'overview',
       label: 'Dashboard Overview',
-      path: '/dashboard',
+      path: '/dashboard/organizer',
       icon: FaHome,
     },
     {
       key: 'organization',
       label: 'Organization Profile',
-      path: '/dashboard/organization',
+      path: '/dashboard/organizer/organization',
       icon: FaBuilding,
     },
     {
       key: 'add-event',
       label: 'Add Event',
-      path: '/dashboard/add-event',
+      path: '/dashboard/organizer/add-event',
       icon: FaPlus,
     },
     {
       key: 'manage-events',
       label: 'Manage Events',
-      path: '/dashboard/manage-events',
+      path: '/dashboard/organizer/manage-events',
       icon: FaCalendarAlt,
     },
     {
       key: 'attendees',
       label: 'Attendees',
-      path: '/dashboard/attendees',
+      path: '/dashboard/organizer/attendees',
       icon: FaUsers,
     },
   ]
