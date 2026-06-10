@@ -1,6 +1,9 @@
 'use client'
 
 import DashbordHeading from '@/components/DashbordHeading'
+import { addEvents } from '@/lib/api/events/action'
+import { useSession } from '@/lib/auth-client'
+import { uploadImageToImgBB } from '@/utils/uploadImage'
 import {
     Button,
     Card,
@@ -17,10 +20,14 @@ import {
     ListBoxItem,
     TextArea,
 } from '@heroui/react'
+import { redirect } from 'next/navigation'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 const AddEventsPage = () => {
+
+    const {data:session}=useSession()
 
     const {
         register,
@@ -32,8 +39,20 @@ const AddEventsPage = () => {
     const CATEGORIES = ['Music', 'Tech', 'Sports', 'Arts', 'Business', 'Food', 'Other']
     const LOCATIONS = ['New York', 'San Francisco', 'London', 'Dhaka', 'Tokyo', 'Berlin', 'Online']
 
-    const onSubmit = (data) => {
-        console.log(data)
+    const onSubmit = async(data) => {
+        const imageFile = data.banner[0];
+        const imageUrl = await uploadImageToImgBB(imageFile);
+
+        const updateData={
+            ...data,
+            imageUrl,
+            OrganizationEmail:session?.user?.email,
+        }
+        const result=await addEvents(updateData)
+        if(result.insertedId){
+            toast.success('Events Added Successful')
+            redirect('/events')
+        }
     }
 
     return (
@@ -85,15 +104,17 @@ const AddEventsPage = () => {
                                     </label>
 
                                     <Input
-                                        placeholder="https://image.com/banner.jpg"
-                                        {...register("bannerUrl", {
-                                            required: "Banner is required"
-                                        })}
+                                        {...register("banner", { required: 'Banner is Required' })}
+                                        id="banner"
+                                        type="file"
+                                        accept="image/*"
+                                        placeholder="https://example.com/avatar.jpg"
+                                        className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500"
                                     />
 
-                                    {errors.bannerUrl && (
+                                    {errors.banner && (
                                         <p className="text-red-500 text-sm">
-                                            {errors.bannerUrl.message}
+                                            {errors.banner.message}
                                         </p>
                                     )}
                                 </div>
