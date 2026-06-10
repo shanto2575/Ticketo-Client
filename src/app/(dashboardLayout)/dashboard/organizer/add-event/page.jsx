@@ -20,14 +20,15 @@ import {
     ListBoxItem,
     TextArea,
 } from '@heroui/react'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 const AddEventsPage = () => {
 
-    const {data:session}=useSession()
+    const router = useRouter()
+    const { data: session } = useSession()
 
     const {
         register,
@@ -39,19 +40,20 @@ const AddEventsPage = () => {
     const CATEGORIES = ['Music', 'Tech', 'Sports', 'Arts', 'Business', 'Food', 'Other']
     const LOCATIONS = ['New York', 'San Francisco', 'London', 'Dhaka', 'Tokyo', 'Berlin', 'Online']
 
-    const onSubmit = async(data) => {
+    const onSubmit = async (data) => {
         const imageFile = data.banner[0];
         const imageUrl = await uploadImageToImgBB(imageFile);
 
-        const updateData={
+        const updateData = {
             ...data,
             imageUrl,
-            OrganizationEmail:session?.user?.email,
+            OrganizationEmail: session?.user?.email,
         }
-        const result=await addEvents(updateData)
-        if(result.insertedId){
-            toast.success('Events Added Successful')
-            redirect('/events')
+        const result = await addEvents(updateData)
+        console.log(result)
+        if (result?.insertedId) {
+            toast.success('Event Added Successful')
+            router.push('/manage-events')
         }
     }
 
@@ -134,14 +136,19 @@ const AddEventsPage = () => {
                                     <input
                                         type="hidden"
                                         {...register("category", {
-                                            required: "Category is required"
+                                            required: "Category is required",
                                         })}
                                     />
 
                                     <Select
-                                        onSelectionChange={(keys) =>
-                                            setValue("category", Array.from(keys)[0])
-                                        }
+                                        onSelectionChange={(keys) => {
+                                            const value = Array.from(keys)
+
+                                            setValue("category", value, {
+                                                shouldValidate: true,
+                                                shouldDirty: true,
+                                            })
+                                        }}
                                     >
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select category" />
@@ -176,14 +183,19 @@ const AddEventsPage = () => {
                                     <input
                                         type="hidden"
                                         {...register("location", {
-                                            required: "Location is required"
+                                            required: "Location is required",
                                         })}
                                     />
 
                                     <Select
-                                        onSelectionChange={(keys) =>
-                                            setValue("location", Array.from(keys)[0])
-                                        }
+                                        onSelectionChange={(keys) => {
+                                            const value = Array.from(keys)
+
+                                            setValue("location", value, {
+                                                shouldValidate: true,
+                                                shouldDirty: true,
+                                            })
+                                        }}
                                     >
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select location" />
