@@ -48,9 +48,11 @@ const LOCATIONS = [
 const ManageEventsPage = () => {
     const [events, setEvents] = useState([])
     const [loading, setLoading] = useState(false)
-    const [isModalOpen,setIsModalOpen]=useState(false)
-    const [editingEvent,setEditingEvent]=useState(null)
-     const [isDeleteOpen, setIsDeleteOpen] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [editingEvent, setEditingEvent] = useState(null)
+    const [isDeleteOpen, setIsDeleteOpen] = useState(null);
+    const [deletedId, setDeletedId] = useState(null);
+
 
     const { data: session } = useSession()
 
@@ -64,6 +66,7 @@ const ManageEventsPage = () => {
         LoadEvent()
     }, [session])
     // console.log(events, 'lkl')
+    
 
     return (
         <div>
@@ -127,8 +130,8 @@ const ManageEventsPage = () => {
                     </div>
                 </Card>
             </div>
-            <EditEventModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} editingEvent={editingEvent}/>
-            <DeleteEventModal isDeleteOpen={isDeleteOpen} setIsDeleteOpen={setIsDeleteOpen} id={deletedId}/>
+            <EditEventModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} editingEvent={editingEvent} />
+            <DeleteEventModal isDeleteOpen={isDeleteOpen} setIsDeleteOpen={setIsDeleteOpen} id={deletedId} />
         </div>
 
     )

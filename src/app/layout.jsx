@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 import Footer from "@/components/Footer";
+import { Toaster } from "react-hot-toast";
 export const metadata = {
   title: "Ticketo | Premium Event Discovery & Ticket Booking Platform",
   description:
@@ -12,8 +13,10 @@ export default function RootLayout({ children }) {
     <html lang="en" className="h-full antialiased dark">
       <body className="min-h-full flex flex-col bg-[#080c16] text-[#f3f4f6]">
 
-        <main className="flex-grow flex flex-col">{children}</main>
-
+        <main className="flex-grow flex flex-col">
+          {children}
+          </main>
+          <Toaster/>
       </body>
     </html>
   );

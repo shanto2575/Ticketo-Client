@@ -4,6 +4,7 @@ import { FaImage } from "react-icons/fa";
 import { uploadImageToImgBB } from '@/utils/uploadImage'
 import { updateEvents } from "@/lib/api/events/action";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const CATEGORIES = [
     "Music",
@@ -39,7 +40,7 @@ const EditEventModal = ({ isModalOpen, setIsModalOpen, editingEvent }) => {
         const updateData = {
             ...data
         }
-        if (data?.banner) {
+        if (data?.banner?.length>0) {
             const imageFile = data.banner[0];
             const imageUrl = await uploadImageToImgBB(imageFile)
             updateData.banner = imageUrl;
@@ -50,6 +51,7 @@ const EditEventModal = ({ isModalOpen, setIsModalOpen, editingEvent }) => {
 
         if (result.modifiedCount) {
             toast.success("Event Updated successfully...")
+            setIsModalOpen(false)
             router.refresh()
         }
 
@@ -280,7 +282,7 @@ const EditEventModal = ({ isModalOpen, setIsModalOpen, editingEvent }) => {
 
                                 <Button
                                     type="submit"
-                                    slot="close"
+                                    slot={'close'}
                                     className="bg-gradient-to-r from-pink-500 to-indigo-600 text-white font-bold h-11 px-6 shadow-lg shadow-pink-500/10 w-full"
                                     radius="lg"
                                 >
