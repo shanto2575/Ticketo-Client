@@ -1,5 +1,7 @@
 'use client'
 import DashbordHeading from '@/components/DashbordHeading'
+import DeleteEventModal from '@/components/DeleteEventsModal';
+import EditEventModal from '@/components/EditEventModal';
 import { myEvents } from '@/lib/api/events/data';
 import { useSession } from '@/lib/auth-client';
 import {
@@ -12,15 +14,45 @@ import {
     TableRow,
     TableCell,
     TableContent,
-    Button
+    Button,
+    TextArea,
+    Input,
+    Form,
+    Label,
+    Modal
 } from "@heroui/react";
 import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form';
 import { FaTrash, FaEdit } from 'react-icons/fa';
 
+const CATEGORIES = [
+    "Music",
+    "Tech",
+    "Sports",
+    "Arts",
+    "Business",
+    "Food",
+    "Other",
+];
+
+const LOCATIONS = [
+    "New York",
+    "San Francisco",
+    "London",
+    "Dhaka",
+    "Tokyo",
+    "Berlin",
+    "Online",
+];
+
 const ManageEventsPage = () => {
-    const { data: session } = useSession();
     const [events, setEvents] = useState([])
     const [loading, setLoading] = useState(false)
+    const [isModalOpen,setIsModalOpen]=useState(false)
+    const [editingEvent,setEditingEvent]=useState(null)
+     const [isDeleteOpen, setIsDeleteOpen] = useState(null);
+
+    const { data: session } = useSession()
 
     useEffect(() => {
         const LoadEvent = async () => {
@@ -31,7 +63,8 @@ const ManageEventsPage = () => {
         }
         LoadEvent()
     }, [session])
-    
+    // console.log(events, 'lkl')
+
     return (
         <div>
             <DashbordHeading title='Manage Events' description='Manage all Events' />
@@ -91,11 +124,13 @@ const ManageEventsPage = () => {
                                 </TableBody>
                             </TableContent>
                         </Table>
-
                     </div>
                 </Card>
             </div>
+            <EditEventModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} editingEvent={editingEvent}/>
+            <DeleteEventModal isDeleteOpen={isDeleteOpen} setIsDeleteOpen={setIsDeleteOpen} id={deletedId}/>
         </div>
+
     )
 }
 

@@ -14,7 +14,6 @@ export const uploadImageToImgBB = async (imageFile) => {
                     body: formData,
                 }
             );
-
             const data = await response.json();
 
             if (data.success) {

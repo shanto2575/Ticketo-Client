@@ -50,7 +50,7 @@ const AddEventsPage = () => {
             OrganizationEmail: session?.user?.email,
         }
         const result = await addEvents(updateData)
-        console.log(result)
+        // console.log(result)
         if (result?.insertedId) {
             toast.success('Event Added Successful')
             router.push('/manage-events')
@@ -291,9 +291,10 @@ const AddEventsPage = () => {
                             {/* SUBMIT */}
                             <Button
                                 type="submit"
+                                slot="close"
                                 className="w-full bg-gradient-to-r from-pink-500 to-indigo-600 text-white font-bold h-11"
                             >
-                                Create Event
+                                Update Event
                             </Button>
 
                         </Form>

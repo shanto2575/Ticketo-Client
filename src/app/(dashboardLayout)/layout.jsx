@@ -25,44 +25,6 @@ const DashboardLayout = ({ children }) => {
 
     const role = session?.user?.role
 
-    // const organizerMenu = [
-    //     {
-    //         key: 'overview',
-    //         label: 'Dashboard Overview',
-    //         path: '/dashboard',
-    //         icon: FaHome,
-
-    //     },
-    //     {
-    //         key: 'organization',
-    //         label: 'Organization Profile',
-    //         path: '/dashboard/organization',
-    //         icon: FaBuilding,
-    //     },
-    //     {
-    //         key: 'add-event',
-    //         label: 'Add Event',
-    //         path: '/dashboard/add-event',
-    //         icon: FaPlus,
-    //     },
-    //     {
-    //         key: 'manage-events',
-    //         label: 'Manage Events',
-    //         path: '/dashboard/manage-events',
-    //         icon: FaCalendarAlt,
-    //     },
-    //     {
-    //         key: 'attendees',
-    //         label: 'Attendees',
-    //         path: '/dashboard/attendees',
-    //         icon: FaUsers,
-    //     },
-    // ]
-
-    const handleLogout = async () => {
-        // logout logic here
-        console.log('Logout clicked')
-    }
 
     return (
         <div className="h-screen flex bg-slate-950">
