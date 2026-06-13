@@ -81,7 +81,7 @@ const EventsDetailsPage =async ({params}) => {
 
                     {/* Organizer Info */}
                     <div className="space-y-4">
-                        <h2 className="text-2xl font-bold text-white">Organized by- <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-pink-500/30 bg-pink-500/5 text-pink-400 text-xs font-semibold uppercase tracking-wider">{event?.organizationEmail}</span> </h2>
+                        <h2 className="text-2xl font-bold text-white">Organized by- <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-pink-500/30 bg-pink-500/5 text-pink-400 text-xs font-semibold uppercase tracking-wider">{event?.OrganizationEmail}</span> </h2>
                     </div>
                 </div>
 

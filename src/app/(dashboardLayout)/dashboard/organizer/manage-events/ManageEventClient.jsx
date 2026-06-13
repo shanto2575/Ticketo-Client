@@ -34,8 +34,8 @@ const ManageEventClient = ({ events }) => {
                                         <TableRow key={ev._id} className="border-b border-white/5 hover:bg-white/5 transition-colors duration-150 last:border-b-0">
                                             <TableCell className="py-4 px-6 align-middle font-bold text-white"><span className="line-clamp-1 truncate max-w-[150px]">{ev.title}</span></TableCell>
                                             <TableCell className="py-4 px-6 align-middle text-slate-300 font-medium">{ev.category}</TableCell>
-                                            <TableCell className="py-4 px-6 align-middle text-slate-300 font-medium">{ev.eventDate}</TableCell>
-                                            <TableCell className="py-4 px-6 align-middle font-semibold text-green-400">${ev.ticketPrice}</TableCell>
+                                            <TableCell className="py-4 px-6 align-middle text-slate-300 font-medium">{ev.date}</TableCell>
+                                            <TableCell className="py-4 px-6 align-middle font-semibold text-green-400">${ev.price}</TableCell>
                                             <TableCell className="py-4 px-6 align-middle text-slate-300 font-medium">{ev.capacity} seats</TableCell>
                                             <TableCell className="py-4 px-6 align-middle">
                                                 <Chip

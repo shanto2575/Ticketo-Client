@@ -4,9 +4,27 @@ import { fetchEvents } from '@/lib/api/events/data'
 import { Suspense } from "react";
 import { Card } from "@heroui/react";
 
-const EventsPage = async() => {
-    const events=await fetchEvents()
-    console.log(events)
+const EventsPage = async({searchParams}) => {
+    const sParams=await searchParams;
+    // console.log(sParams)
+    const search=sParams.search||'';
+    const category=sParams.category||'';
+    const location=sParams.location||'';
+    // console.log(search,category,location)
+    const params = new URLSearchParams();
+    if (search) {
+        params.set("search", search);
+    }
+    if (category) {
+        params.set("category", category);
+    }
+    if (location) {
+        params.set("location", location);
+    }
+    const events=await fetchEvents(params)
+    // console.log(events)
+    
+    
     return (
         <div>
             <div className="min-h-screen py-16 px-6 max-w-7xl mx-auto w-full space-y-12">
