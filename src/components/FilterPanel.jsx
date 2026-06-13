@@ -21,7 +21,6 @@ export default function FilterPanel() {
           <Input
             id="search-title"
             placeholder="Search keyword..."
-            startContent={<FaSearch className="text-pink-500 text-sm mr-1" />}
             variant="bordered"
             className="w-full bg-slate-900/60 border border-white/10 rounded-xl p-3 focus:outline-none focus:border-pink-500 hover:border-white/20 text-white text-sm cursor-pointer h-12 flex items-center transition-all duration-300"
           />

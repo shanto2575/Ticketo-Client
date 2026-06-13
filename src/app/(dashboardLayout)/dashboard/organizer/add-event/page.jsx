@@ -46,14 +46,14 @@ const AddEventsPage = () => {
 
         const updateData = {
             ...data,
-            imageUrl,
+            banner:imageUrl,
             OrganizationEmail: session?.user?.email,
         }
         const result = await addEvents(updateData)
         // console.log("RESULT:", result.insertedId,typeof JSON.parse(result).insertedId)
         if (JSON.parse(result).insertedId) {
             toast.success('Event Added Successful')
-            router.push('/dashboard/organizer/manage-events')
+            router.push('/events')
         }
     }
 
