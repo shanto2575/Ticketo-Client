@@ -96,7 +96,6 @@ const AddEventsPage = () => {
                                     <Input
                                         label="Event Title"
                                         className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 p-3"
-                                        labelPlacement="outside"
                                         placeholder="e.g. Rock Fest 2026"
                                         {...register("title", {
                                             required: "Event title is required",

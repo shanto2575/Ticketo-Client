@@ -1,8 +1,10 @@
 import DashbordHeading from "@/components/DashbordHeading";
+import UpdateToPremiumButton from "@/components/UpdateToPremiumButton";
+import { getUser } from "@/lib/api/session";
 import { Button, Card } from "@heroui/react";
 import { FaCalendarAlt, FaCrown, FaDollarSign, FaUsers } from "react-icons/fa";
 
-const OrganizerOverviewPage = () => {
+const OrganizerOverviewPage = async () => {
     const stats = {
         totalEvents: 15,
         totalAttendees: 450,
@@ -10,11 +12,16 @@ const OrganizerOverviewPage = () => {
         totalSoldTickets: 780,
     };
 
-    const isPremium = false;
+    const user = await getUser()
+    // console.log(user)
+    const isPremium=user?.isPremium;
+    // const isPremium = false;
+
+    
 
     return (
         <div className="space-y-6 mt-6 px-6">
-            <DashbordHeading title={'OverView'} description={'Dashboard Overview'}/>
+            <DashbordHeading title={'OverView'} description={'Dashboard Overview'} />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Card className="glass border-white/5" radius="lg">
                     <div className="p-6 flex flex-row items-center justify-between">
@@ -45,16 +52,40 @@ const OrganizerOverviewPage = () => {
                 </Card>
             </div>
 
-            {!isPremium && (
+            {!isPremium ? (
                 <Card className="border border-yellow-500/20 bg-gradient-to-r from-yellow-500/5 via-amber-600/5 to-transparent relative overflow-hidden" radius="lg">
                     <div className="p-8 flex flex-col md:flex-row items-center justify-between gap-6 z-10">
                         <div className="space-y-2">
-                            <h3 className="text-xl font-bold text-white flex items-center gap-2"><FaCrown className="text-yellow-400" /> Unlock Unlimited Event Creation</h3>
-                            <p className="text-slate-400 text-xs max-w-xl leading-relaxed">Standard organizer accounts are limited to <strong>3 events</strong>. Upgrade to our Premium Package for <strong>$49.00</strong> to host unlimited events.</p>
+                            <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                                <FaCrown className="text-yellow-400" /> Unlock Unlimited Event Creation
+                            </h3>
+                            <p className="text-slate-400 text-xs max-w-xl leading-relaxed">
+                                Standard organizer accounts are limited to <strong>3 events</strong>. Upgrade to our Premium Package for <strong>$49.00</strong> to host unlimited events.
+                            </p>
                         </div>
-                        <Button className="bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold h-11 px-6 shadow-lg shadow-yellow-500/10 shrink-0" radius="lg">
-                            Upgrade to Premium
-                        </Button>
+                       <UpdateToPremiumButton/>
+                    </div>
+                </Card>
+            ) : (
+                
+                <Card className="border border-indigo-500/30 bg-gradient-to-r from-indigo-950/40 via-purple-950/20 to-slate-950 relative overflow-hidden shadow-2xl shadow-indigo-500/5" radius="lg">
+                    
+                    <div className="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/10 blur-3xl rounded-full pointer-events-none" />
+                    <div className="absolute -left-10 -bottom-10 w-40 h-40 bg-purple-500/10 blur-3xl rounded-full pointer-events-none" />
+
+                    <div className="p-8 flex flex-col md:flex-row items-center justify-between gap-6 z-10">
+                        <div className="space-y-2">
+                            <h3 className="text-xl font-bold bg-gradient-to-r from-white via-indigo-200 to-purple-300 bg-clip-text text-transparent flex items-center gap-2">
+                                <FaCrown className="text-indigo-400 drop-shadow-[0_0_8px_rgba(129,140,248,0.6)]" /> Premium Plan Active
+                            </h3>
+                            <p className="text-slate-300 text-xs max-w-xl leading-relaxed">
+                                Welcome to the elite club! You have unlocked **Unlimited Event Creation**, priority support, and advanced visibility. Enjoy hosting without limits!
+                            </p>
+                        </div>
+
+                        <span className="bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold px-4 py-2 rounded-full shadow-inner tracking-wider uppercase shrink-0">
+                            PRO ORGANIZER
+                        </span>
                     </div>
                 </Card>
             )}
