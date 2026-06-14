@@ -8,7 +8,8 @@ const UpdateToPremiumButton = () => {
       method:'POST',
       headers:{
         'Content-type':'application/json'
-      }
+      },
+      body:JSON.stringify({type:'subscription'})
     })
     const data = await res.json()
     // console.log(data, 'checkout')

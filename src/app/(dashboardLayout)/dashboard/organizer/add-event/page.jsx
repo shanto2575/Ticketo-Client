@@ -223,7 +223,6 @@ const AddEventsPage = () => {
                                         className="w-full bg-slate-900/50 border-white/10 hover:border-pink-500/50 focus-within:!border-pink-500 p-3"
                                         type="number"
                                         label="Ticket Price ($)"
-                                       
                                         placeholder="0.00"
                                         {...register("price", {
                                             required: "Price is required",
@@ -249,7 +248,6 @@ const AddEventsPage = () => {
                                     <Input
                                         type="number"
                                         label="Available Capacity"
-                                       
                                         placeholder="100"
                                         {...register("capacity", {
                                             required: "Capacity is required",

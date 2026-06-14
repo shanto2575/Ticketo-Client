@@ -16,7 +16,7 @@ const fetchEvent = async (id) => {
 const EventsDetailsPage =async ({params}) => {
     const { id } = await params;
     const event=await fetchEvent(id)
-    // console.log(events)
+    // console.log(event)
     return (
         <div className="min-h-screen py-16 px-6 max-w-6xl mx-auto w-full space-y-12">
             {/* Back Button */}
@@ -87,7 +87,10 @@ const EventsDetailsPage =async ({params}) => {
 
                 {/* Right Column: Ticket Booking Widget */}
                 <div className="space-y-6">
-                    <BookingWidget ticketPrice={event?.price} availableSeats={event?.capacity} eventId={event?._id} eventTitle={event?.title} />
+                    <BookingWidget 
+                    price={Number(event?.price || 0)}
+                    availableSeats={Number(event?.capacity || 0)} 
+                    eventId={event?._id} eventTitle={event?.title} />
                 </div>
             </div>
         </div>

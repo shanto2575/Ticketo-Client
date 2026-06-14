@@ -3,12 +3,49 @@
 import { useState } from "react";
 import { Card, Button, Input } from "@heroui/react";
 import { FaCheck } from "react-icons/fa";
+import { useSession } from "@/lib/auth-client";
 
-export default function BookingWidget({ ticketPrice = 49.99, availableSeats = 120 }) {
+export default function BookingWidget({ price , availableSeats ,eventId,eventTitle }) {
+  const [quantity,setQuantity]=useState(1)
+  // console.log(quantity)
+  const totalAmount=price.toFixed(2)*quantity
   const isSoldOut = availableSeats <= 0;
+
+  const {data:session}=useSession()
+  const user=session?.user;
+  // console.log(user)
+
+  const handleBookTicket = async () => {
+
+    const paymentData = {
+      type: "booking",
+      price: price.toFixed(2),
+      eventId,
+      eventTitle,
+      quantity,
+    }
+
+    const res = await fetch("/api/checkout_sessions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(paymentData)
+    });
+    const data = await res.json();
+    // console.log(data);
+    if (data?.url) {
+      window.location.href = data.url;
+    }
+  }
+
+  
 
   return (
     <Card className="glass border-white/5 sticky top-24" radius="lg">
+      {
+        user?.role=='attendee' ?
+
       <div className="p-8 space-y-6">
         <h3 className="text-xl font-bold text-white">Booking Details</h3>
 
@@ -17,7 +54,7 @@ export default function BookingWidget({ ticketPrice = 49.99, availableSeats = 12
           <div className="flex justify-between items-center text-sm">
             <span className="text-slate-400">Ticket Price:</span>
             <span className="text-pink-400 font-extrabold text-xl">
-              {ticketPrice === 0 ? "Free" : `$${ticketPrice.toFixed(2)}`}
+              {price === 0 ? "Free" : `${price.toFixed(2)}`}
             </span>
           </div>
           <div className="flex justify-between items-center text-sm">
@@ -36,6 +73,7 @@ export default function BookingWidget({ ticketPrice = 49.99, availableSeats = 12
           <>
             {/* Quantity selector */}
             <Input
+            onChange={e=>setQuantity(Number(e.target.value))}
               type="number"
               label="Quantity"
               placeholder="1"
@@ -47,7 +85,7 @@ export default function BookingWidget({ ticketPrice = 49.99, availableSeats = 12
             <div className="flex justify-between items-center text-sm font-semibold text-white pt-2">
               <span>Total Amount:</span>
               <span className="text-white text-lg">
-                ${ticketPrice.toFixed(2)}
+                ${totalAmount}
               </span>
             </div>
           </>
@@ -55,6 +93,7 @@ export default function BookingWidget({ ticketPrice = 49.99, availableSeats = 12
 
         <Button
           isDisabled={isSoldOut}
+          onClick={handleBookTicket}
           className={`w-full font-bold h-12 shadow-lg ${isSoldOut
             ? "bg-slate-800 text-slate-500 shadow-none cursor-not-allowed"
             : "bg-gradient-to-r from-pink-500 to-indigo-600 text-white shadow-pink-500/10 hover:shadow-pink-500/20"
@@ -63,12 +102,16 @@ export default function BookingWidget({ ticketPrice = 49.99, availableSeats = 12
         >
           {isSoldOut ? "Sold Out" : "Book Ticket Now"}
         </Button>
-
         <div className="flex items-center gap-2 text-[11px] text-slate-400 text-center justify-center pt-2">
           <FaCheck className="text-green-500 shrink-0" />
           <span>Instant confirmation | Vetted organizers</span>
         </div>
-      </div>
+      </div> : <Card>
+        <p>
+          {user?.role.toUpperCase()} con`t buy Events
+        </p>
+      </Card>
+      }
     </Card>
   );
 }
