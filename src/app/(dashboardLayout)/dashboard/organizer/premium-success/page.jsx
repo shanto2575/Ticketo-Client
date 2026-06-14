@@ -8,7 +8,7 @@ import { baseUrl } from '@/lib/api/baseUrl';
 
 export default async function Success({ searchParams }) {
     const { session_id } = await searchParams
-    console.log(session_id)
+    // console.log(session_id)
 
     if (!session_id)
         throw new Error('Please provide a valid session_id (`cs_test_...`)')
@@ -16,7 +16,7 @@ export default async function Success({ searchParams }) {
     const session = await stripe.checkout.sessions.retrieve(session_id, {
         expand: ['line_items', 'payment_intent']
     })
-    console.log(session)
+    // console.log(session)
     const paymentData = {
         userEmail: session?.customer_email,
         transactionId: session?.subscription,
@@ -24,7 +24,7 @@ export default async function Success({ searchParams }) {
         paymentType: 'subscription',
         amount: session?.amount_total
     }
-    console.log(paymentData)
+    // console.log(paymentData)
 
     const res = await fetch(`${baseUrl}/api/users/upgrade-premium/${session?.customer_email}`, {
         method: 'PATCH',
@@ -34,7 +34,7 @@ export default async function Success({ searchParams }) {
         body: JSON.stringify(paymentData)
     })
     const data = await res.json()
-    console.log(data)
+    // console.log(data)
 
     return (
         <div className="min-h-[80vh] flex items-center justify-center bg-[#080c16] px-6 py-12">

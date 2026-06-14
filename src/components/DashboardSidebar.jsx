@@ -1,9 +1,10 @@
 'use client'
 
 import Logo from '@/components/Logo'
-import { useSession } from '@/lib/auth-client'
+import { authClient, useSession } from '@/lib/auth-client'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import {
   FaBuilding,
@@ -47,30 +48,24 @@ const DashboardLayout = ({ children }) => {
       path: '/dashboard/organizer/manage-events',
       icon: FaCalendarAlt,
     },
-    {
-      key: 'attendees',
-      label: 'Attendees',
-      path: '/dashboard/organizer/attendees',
-      icon: FaUsers,
-    },
   ]
   const attendeeMenu = [
     {
       key: "overview",
       label: "Overview",
-      path: "/dashboard/attendees",
+      path: "/dashboard/attendee",
       icon: FaUserCircle,
     },
     {
       key: "tickets",
       label: "My Tickets",
-      path: "/dashboard/attendees/tickets",
+      path: "/dashboard/attendee/tickets",
       icon: FaTicketAlt,
     },
     {
       key: "payments",
       label: "Payments",
-      path: "/dashboard/attendees/payments",
+      path: "/dashboard/attendee/payments",
       icon: FaHistory,
     },
   ]
@@ -98,11 +93,12 @@ const DashboardLayout = ({ children }) => {
   const role = session?.user?.role
   // const role='attendee'
   const menuItem = role === 'organizer' ? organizerMenu : role === 'attendee' ? attendeeMenu : role === 'admin' ? adminMenu : [];
+  const route=useRouter()
 
   const handleLogout = async () => {
-    // logout logic here
-    console.log('Logout clicked')
-  }
+      await authClient.signOut()
+      route.push('/')
+    };
 
   return (
     <div className="h-screen flex bg-slate-950">

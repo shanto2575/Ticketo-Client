@@ -296,7 +296,7 @@ const AddEventsPage = () => {
 
                             <Button
                                 type="submit"
-                                className="bg-gradient-to-r from-pink-500 to-indigo-600 text-white font-bold h-11 px-6 shadow-lg shadow-pink-500/10"
+                                className="w-full bg-gradient-to-r from-pink-500 to-indigo-600 text-white font-bold h-11 px-6 shadow-lg shadow-pink-500/10"
                                 radius="lg"
                             >
                                 Host Event Now
