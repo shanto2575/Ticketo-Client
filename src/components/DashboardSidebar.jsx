@@ -58,19 +58,19 @@ const DashboardLayout = ({ children }) => {
     {
       key: "overview",
       label: "Overview",
-      path: "/dashboard",
+      path: "/dashboard/attendees",
       icon: FaUserCircle,
     },
     {
       key: "tickets",
       label: "My Tickets",
-      path: "/dashboard/my-tickets",
+      path: "/dashboard/attendees/tickets",
       icon: FaTicketAlt,
     },
     {
       key: "payments",
       label: "Payments",
-      path: "/dashboard/payments",
+      path: "/dashboard/attendees/payments",
       icon: FaHistory,
     },
   ]

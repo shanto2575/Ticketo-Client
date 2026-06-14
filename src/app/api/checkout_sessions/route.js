@@ -10,15 +10,15 @@ export async function POST(req) {
         const origin = headersList.get('origin')
         const body = await req.json()
         const { type } = body
-        console.log(body)
+        // console.log(body)
         const user = await getUser()
 
         let lineObj;
-        let metaObj;
+        let metaObj = {};
         if (type == 'subscription') {
             lineObj = {
                 // Provide the exact Price ID (for example, price_1234) of the product you want to sell
-                price: 'price_1TgpUbKExS1h0fIImDNtiaU2',
+                price:process.env.NEXT_PUBLIC_STRIPE_PREMIUM_PRICE_ID,
                 quantity: 1,
             };
         } else {

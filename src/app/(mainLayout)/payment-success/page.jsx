@@ -25,7 +25,7 @@ export default async function PaymentSuccess({ searchParams }) {
         body: JSON.stringify(paymentData)
     })
     const data = await res.json();
-    console.log(data)
+    // console.log(data)
 
 
 

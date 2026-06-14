@@ -63,7 +63,7 @@ const OrganizerOverviewPage = async () => {
                                 Standard organizer accounts are limited to <strong>3 events</strong>. Upgrade to our Premium Package for <strong>$49.00</strong> to host unlimited events.
                             </p>
                         </div>
-                       <UpdateToPremiumButton/>
+                    <UpdateToPremiumButton/>
                     </div>
                 </Card>
             ) : (

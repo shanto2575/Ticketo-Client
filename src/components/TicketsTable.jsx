@@ -11,32 +11,14 @@ import {
   Chip
 } from "@heroui/react";
 
-const TicketsTable = () => {
-  const tickets = [
-    {
-      _id: "t1",
-      eventId: "1",
-      eventTitle: "Global Tech Summit 2026",
-      bookingDate: "2026-06-03T10:00:00Z",
-      quantity: 2,
-      amount: 298.00,
-      paymentStatus: "paid"
-    },
-    {
-      _id: "t2",
-      eventId: "2",
-      eventTitle: "Symphony Under the Stars",
-      bookingDate: "2026-05-15T14:30:00Z",
-      quantity: 1,
-      amount: 45.00,
-      paymentStatus: "paid"
-    }
-  ];
+const TicketsTable = ({tickets}) => {
+  
+console.log(tickets)
 
   return (
     <Card className="border border-white/5 bg-slate-900/40 backdrop-blur-xl shadow-2xl p-6 rounded-2xl">
       <div className="p-0 overflow-x-auto">
-        <Table aria-label="My Tickets Table" removeWrapper>
+        <Table aria-label="My Tickets Table" >
           <TableContent>
             <TableHeader className="bg-slate-950/40 border-b border-white/5 rounded-t-xl">
               <TableColumn className="py-4 px-6 text-slate-400 font-extrabold uppercase text-[11px] tracking-wider border-b border-white/5 bg-slate-950/20" isRowHeader>EVENT NAME</TableColumn>
@@ -55,7 +37,7 @@ const TicketsTable = () => {
                   </TableCell>
                   <TableCell className="py-4 px-6 align-middle text-slate-300 font-medium">{new Date(ticket.bookingDate).toLocaleDateString()}</TableCell>
                   <TableCell className="py-4 px-6 align-middle text-slate-300 font-medium">{ticket.quantity} ticket(s)</TableCell>
-                  <TableCell className="py-4 px-6 align-middle font-semibold text-green-400">${ticket.amount?.toFixed(2)}</TableCell>
+                  <TableCell className="py-4 px-6 align-middle font-semibold text-green-400">${(Number(ticket.amount))?.toFixed(2)}</TableCell>
                   <TableCell className="py-4 px-6 align-middle">
                     <Chip
                       size="sm"

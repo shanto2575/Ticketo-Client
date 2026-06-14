@@ -17,15 +17,24 @@ export default async function Success({ searchParams }) {
         expand: ['line_items', 'payment_intent']
     })
     console.log(session)
+    const paymentData = {
+        userEmail: session?.customer_email,
+        transactionId: session?.subscription,
+        paymentStatus: session?.payment_status,
+        paymentType: 'subscription',
+        amount: session?.amount_total
+    }
+    console.log(paymentData)
 
-    const res=await fetch(`${baseUrl}/api/users/upgrade-premium/${session?.customer_email}`,{
-        method:'PATCH',
-        headers:{
-            'Content-type':'application/json'
-        }
+    const res = await fetch(`${baseUrl}/api/users/upgrade-premium/${session?.customer_email}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(paymentData)
     })
-    const data=await res.json()
-        // console.log(data)
+    const data = await res.json()
+    console.log(data)
 
     return (
         <div className="min-h-[80vh] flex items-center justify-center bg-[#080c16] px-6 py-12">
